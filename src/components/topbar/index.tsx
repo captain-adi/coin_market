@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Setting from "../header/components/Setting";
+import Setting from "./Setting";
 
 export default function Topbar() {
   return (

@@ -11,6 +11,8 @@ function App() {
         <Topbar />
         <Separator className="w-screen mt-0.5" />
         <Header />
+        <Separator className="w-screen mt-0.5" />
+
         <main>
           
         <Outlet />
