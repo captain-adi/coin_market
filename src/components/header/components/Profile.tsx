@@ -12,7 +12,7 @@ function Profile() {
     <Popover >
       <PopoverTrigger>
         {" "}
-        <span className="text-yellow-400 text-sm font-medium">
+        <span className=" text-sm font-medium">
           ⭐ Portfolio
         </span>
       </PopoverTrigger>

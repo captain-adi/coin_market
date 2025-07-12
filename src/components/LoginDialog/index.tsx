@@ -7,8 +7,8 @@ export default function LoginDialog({open}:{open: boolean}) {
   return (
     <Dialog open={open} >
         <DialogTrigger>
-            <Button variant="outline" className="text-sm font-medium text-yellow-400 " onClick={()=> setOpenDialog(true)}>
-                ⭐ Get Started
+            <Button variant="outline" className="text-sm font-medium " onClick={()=> setOpenDialog(true)}>
+                 Get Started
             </Button>
         </DialogTrigger>
       <DialogContent className="bg-zinc-900 text-white px-6 py-8 max-w-sm rounded-lg border border-zinc-700">
