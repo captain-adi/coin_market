@@ -1,3 +1,4 @@
+import CoinList from '@/components/coinList'
 import HighLights from '@/components/highlights'
 import { Switch } from '@/components/ui/switch'
 import { Link } from 'react-router-dom'
@@ -28,6 +29,12 @@ function Dashboard() {
   {name: 'Bitcoin', value: {price : '$45,000', change: '2.5%'}},
   {name: 'Ethereum', value: {price : '$45,000', change: '2.5%'}},
  ]}/>
+    </div>
+
+
+    <div className='container mx-auto mt-10 '>
+<CoinList/>
+
     </div>
     </div>
   )

@@ -11,6 +11,9 @@ export const route = createBrowserRouter([
             {
                 path: "/",
                 element : <Dashboard/>
+            },
+            {
+                path  : "/highlights/trending-cryptos",
             }
         ]
      }
