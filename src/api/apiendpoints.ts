@@ -6,9 +6,10 @@ class Cypto_API {
                 const baseURL = API_CONFIG.COIN_BASE_URL;
                 const searchParams = new URLSearchParams({
                     vs_currency: API_CONFIG.DEFAULT_PARAMS.vs_currency,
+                    sparkline : "true",
                 })
                 return `${baseURL}/${endpoint}?${searchParams.toString()}`;
-    }
+    }   
      private async fetchData<T>(url: string): Promise<T>{
                 const response = await fetch(url)
                 if (!response.ok) {

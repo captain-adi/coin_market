@@ -18,6 +18,9 @@ export interface ICoin {
   total_supply: number;
   max_supply: number;
   ath: number;
+  sparkline_in_7d: {
+    price: number[];
+  };
   ath_change_percentage: number;
   ath_date: string; // ISO date string
   atl: number;

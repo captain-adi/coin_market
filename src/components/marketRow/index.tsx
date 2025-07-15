@@ -4,7 +4,7 @@ import "./index.css";
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { Star } from "lucide-react";
 import { useTheme } from "../themeProvider";
-
+import  {SparklineRenderer} from '@/components/sparkline'
   function MarketRow() {
   const { data: rowData } = usegetCoinList();
 
@@ -40,10 +40,16 @@ import { useTheme } from "../themeProvider";
     },
     {
         valueFormatter:  p => "$" + p.value.toLocaleString(),   
-      headerName: "24n Valume",
+      headerName: "24h   Valume",
       field: "total_volume",
       sortable: true,
     },
+   
+{
+  headerName: '7d Trend',
+  field: 'sparkline_in_7d.price',
+  cellRenderer: SparklineRenderer,
+}
   ];
 const {theme} = useTheme()
   return (
