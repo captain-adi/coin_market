@@ -2,7 +2,7 @@ export const API_CONFIG = {
     COIN_BASE_URL: "https://api.coingecko.com/api/v3/coins",
     ENDPOINTS: {
         CRYPTO_CURRENCIES_LIST: "markets",
-        CRYPTOCURRENCY_DETAILS: "/coins",
+        CRYPTOCURRENCY_DETAILS: "coins",
         GLOBAL_DATA: "/global",
         SEARCH: "/search",
         EXCHANGES: "/exchanges",

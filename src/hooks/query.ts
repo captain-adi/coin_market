@@ -9,3 +9,12 @@ export const usegetCoinList = () => {
     })
 }   
 
+
+export const usegetCoinDetails = (coinname : string | undefined)=>{
+    return useQuery({
+        queryKey : ['coindetails'],
+        queryFn : async() =>{
+                return cryptoAPI.getCtyptoCoinDetails(coinname)
+        }
+    })
+}

@@ -1,5 +1,6 @@
 import type { ICoinList } from "@/types";
 import { API_CONFIG } from "./apiconfig";
+import type { ICoinDetails } from "@/types/coinDataType";
 
 class Cypto_API {
     private CreateUrl(endpoint : string){
@@ -21,6 +22,15 @@ class Cypto_API {
     async getCryptoCoinsList(): Promise<ICoinList> {
           const url = this.CreateUrl(API_CONFIG.ENDPOINTS.CRYPTO_CURRENCIES_LIST);
           return this.fetchData<ICoinList>(url);
+    }
+
+    async getCtyptoCoinDetails (coinname:string | undefined):Promise<ICoinDetails> {
+        const url = this.CreateUrl(`${coinname}`);
+        return this.fetchData<ICoinDetails>(url);
+    }
+    async getCrytoDataForChart (coinname: string , day : number | string){
+           const url = this.CreateUrl(`${coinname}/market_chart?day=${day}`);
+           return this.fetchData(url)
     }
 }
 
