@@ -10,12 +10,14 @@ import CoinLinks from "./components/CoinLinks";
 import { format } from "date-fns";
 import PriceChart from "./components/PriceChart";
 import CoinDetailsSkeleton from "@/skelton/CoinDetailsSkeleton";
+import { useState } from "react";
 
 function CoinDetails() {
   const { coinname } = useParams();
+  const [date, setDate] = useState(30);
 
   const { data, isFetching } = usegetCoinDetails(coinname);
-  const {data:chartData}  = usegetCoinChartData(coinname! , 30);
+  const { data: chartData } = usegetCoinChartData(coinname!, date);
   const chartDataFormatted = chartData?.prices.map((item: [number, number]) => ({
     time: format(new Date(item[0]), "yyyy-MM-dd"),
     price: item[1],
@@ -24,6 +26,12 @@ function CoinDetails() {
   if (isFetching) {
     return <CoinDetailsSkeleton/>;
   }
+
+  const dateOptions = [
+    { label: "1m", value: 30 },
+    { label: "24h", value: 1 },
+    { label: "7d", value: 7 },
+    { label: "1y", value: 365 },]
 
   return (
     <div className="container mx-auto p-4 flex gap-3 ">
@@ -150,6 +158,17 @@ function CoinDetails() {
       </Card>
         <Card className="bg-background h-full  w-full">
           <CardTitle className="text-xl  px-4 pt-4">Overview</CardTitle>
+          <div className="flex gap-4 px-4 pt-2 text-sm text-muted-foreground">
+            {dateOptions.map((option) => (
+              <button
+                key={option.value}
+                className={`border px-2 rounded py-0.5 font-bold transition-colors duration-150 ${date === option.value ? "bg-primary text-primary-foreground border-primary" : "bg-background border-muted"}`}
+                onClick={() => setDate(option.value)}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
           <CardContent className="px-4 ">
            <PriceChart data={chartDataFormatted || []}/>
            <Card className="bg-background mt-4 ">
