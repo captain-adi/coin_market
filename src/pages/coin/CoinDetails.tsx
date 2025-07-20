@@ -9,7 +9,7 @@ import CoinLinks from "./components/CoinLinks";
 
 import { format } from "date-fns";
 import PriceChart from "./components/PriceChart";
-import CoinDetailsSkeleton from "@/skelton/coinDetailsSkeleton";
+import CoinDetailsSkeleton from "@/skelton/CoinDetailsSkeleton";
 
 function CoinDetails() {
   const { coinname } = useParams();
