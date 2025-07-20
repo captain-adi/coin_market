@@ -18,3 +18,14 @@ export const usegetCoinDetails = (coinname : string | undefined)=>{
         }
     })
 }
+
+
+export const usegetCoinChartData = (coinname: string , day: number | string) => {
+    return useQuery({
+        queryKey: ['coinChartData', coinname, day],
+        queryFn: async () => {
+            return cryptoAPI.getCrytoDataForChart(coinname, day);
+        },
+        enabled: !!coinname, // Only run the query if coinname is defined
+    });
+};

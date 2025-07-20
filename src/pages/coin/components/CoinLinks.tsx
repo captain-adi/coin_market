@@ -49,7 +49,7 @@ function CoinLinks({ data }: ICoinLinks) {
                   {validLinks.slice(0, 5).map((link, index) => (
                     <DropdownMenuItem key={index}>
                       <a href={link} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">
-                        {extractDomain(link)}
+                        {extractDomain(link!)}
                       </a>
                     </DropdownMenuItem>
                   ))}
