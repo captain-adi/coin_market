@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import PriceChart from "./components/PriceChart";
 import CoinDetailsSkeleton from "@/skelton/CoinDetailsSkeleton";
 import { useState } from "react";
+import DeveloperData from "./components/DeveloperData";
 
 function CoinDetails() {
   const { coinname } = useParams();
@@ -28,17 +29,19 @@ function CoinDetails() {
   }
 
   const dateOptions = [
-    { label: "1m", value: 30 },
     { label: "24h", value: 1 },
     { label: "7d", value: 7 },
-    { label: "1y", value: 365 },]
+    { label: "1m", value: 30 },
+    { label: "1y", value: 365 },
+  ];
 
   return (
     <div className="container mx-auto p-4 flex gap-3 ">
       <Card className="w-full max-w-md bg-background text-foreground rounded-2xl shadow-xl p-4">
         <CardContent className="space-y-4">
-          <div className="flex gap-2">
-        <User />
+          <div className="flex gap-2   items-center">
+            <img src={data?.image.small} className="h-7" alt="" />
+    
         <CardTitle className="text-lg font-semibold">
           {data?.name} {data?.symbol?.toUpperCase()} Price
         </CardTitle>
@@ -169,12 +172,13 @@ function CoinDetails() {
               </button>
             ))}
           </div>
-          <CardContent className="px-4 ">
+          <CardContent className="px-4 flex flex-col gap-4 ">
            <PriceChart data={chartDataFormatted || []}/>
-           <Card className="bg-background mt-4 ">
+           {data?.developer_data && <DeveloperData data={data.developer_data} />}
+           <Card className="bg-background shadow-2xl ">
             <CardTitle className="text-xl px-4 pt-4">Description</CardTitle>
             <CardContent className="px-4 pb-4">
-              <div className="mb-1">About Bitcoin (BTC)</div>
+              <div className="mb-1">{data?.name} ( {data?.symbol} )</div>
               <p className="text-sm text-muted-foreground">
                 {data?.description.en || "No description available."}
               </p>

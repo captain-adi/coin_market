@@ -1,4 +1,5 @@
 import { AgGridReact } from "ag-grid-react";
+import type { ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { usegetCoinList } from "@/hooks/query";
 import "./index.css";
 import 'ag-grid-community/styles/ag-theme-material.css';
@@ -10,10 +11,10 @@ import { useNavigate } from "react-router-dom";
   const { data: rowData } = usegetCoinList();
 const navigate = useNavigate();
   const columnDefs = [
-      { headerName: "#", cellRenderer: (params) => {return(<div className="flex  items-center gap-2.5"><Star className="h-4"/><span>{params.data.market_cap_rank}</span></div>)}, sortable: true ,field : "market_cap_rank"},
+      { headerName: "#", cellRenderer: (params: ICellRendererParams) => {return(<div className="flex  items-center gap-2.5"><Star className="h-4"/><span>{params.data.market_cap_rank}</span></div>)}, sortable: true ,field : "market_cap_rank"},
     {
       headerName: "Coin",
-      cellRenderer: (params) => {
+      cellRenderer: (params: ICellRendererParams) => {
         return (
           <span className="flex gap-2 items-center">
             <img src={params.data.image}  className="h-4"/>
@@ -29,18 +30,18 @@ const navigate = useNavigate();
     },
 
     {
-      valueFormatter:  p => "$" + p.value.toLocaleString(), 
+      valueFormatter:  (p: ValueFormatterParams) => "$" + p.value.toLocaleString(), 
       headerName: "Price",
       field: "current_price",
       sortable: true,
     },
-    {   valueFormatter:  p => "$" + p.value.toLocaleString(), 
+    {   valueFormatter:  (p: ValueFormatterParams) => "$" + p.value.toLocaleString(), 
       headerName: "Market Cap",
       field: "market_cap",
       sortable: true,
     },
     {
-        valueFormatter:  p => "$" + p.value.toLocaleString(),   
+        valueFormatter:  (p: ValueFormatterParams) => "$" + p.value.toLocaleString(),   
       headerName: "24h   Valume",
       field: "total_volume",
       sortable: true,
@@ -48,10 +49,9 @@ const navigate = useNavigate();
    
 {
   headerName: '7d Trend',
-  field: 'sparkline_in_7d.price',
-  cellRenderer: SparklineRenderer,
+  cellRenderer: (params: ICellRendererParams) => SparklineRenderer(params),
   tooltipComponent: null,
-   tooltipValueGetter: () => '',
+  tooltipValueGetter: () => '',
 }
   ];
 const {theme} = useTheme()

@@ -7,6 +7,7 @@ export const API_CONFIG = {
         SEARCH: "/search",
         EXCHANGES: "/exchanges",
         EXCHANGE_DETAILS: "/exchanges/{id}",
+        TRENDING_CRYPTOS: "search/trending",
     },
     DEFAULT_PARAMS: {
         vs_currency: "usd",

@@ -28,7 +28,7 @@ function PriceChart({ data }: { data: { time: string; price: number }[] }) {
   const lineColor = isUpTrend ? "#4caf50" : "#f44336";
 
   return (
-    <div className="h-[500px] w-full border-2 rounded-md bg-background">
+    <div className="h-[500px] w-full border-2 rounded-md bg-background shadow-2xl">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
           <XAxis

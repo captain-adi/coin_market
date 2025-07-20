@@ -29,3 +29,13 @@ export const usegetCoinChartData = (coinname: string , day: number | string) => 
         enabled: !!coinname, // Only run the query if coinname is defined
     });
 };
+
+
+export const usegetTrendingCoins=()=>{
+    return useQuery({
+        queryKey : ['trendingCoins'],
+        queryFn : async()=>{
+            return cryptoAPI.getTrendingCoins();
+        }
+    })
+}
