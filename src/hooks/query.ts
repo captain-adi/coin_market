@@ -39,3 +39,14 @@ export const usegetTrendingCoins=()=>{
         }
     })
 }
+
+
+export const usegetCoinSearch = (query: string) => {
+    return useQuery({
+        queryKey: ['coinSearch', query],
+        queryFn: async () => {
+            return cryptoAPI.getCoinSearch(query);
+        },
+        enabled: !!query, // Only run the query if query is not empty
+    });
+}

@@ -1,16 +1,18 @@
 
 import { usegetCoinList, usegetTrendingCoins } from "@/hooks/query";
 import { AgGridReact } from "ag-grid-react";
-import type { ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
+import type { ICellRendererParams, ValueFormatterParams  } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import SparklineRenderer from "@/components/sparkline";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { useTheme } from "@/components/themeProvider";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import type { ICoin } from "@/types";
 function TrendingCurrency() {
   const { theme } = useTheme();
    ModuleRegistry.registerModules([AllCommunityModule]);
+   type CoinValueParams = ValueFormatterParams<ICoin>;
   const { data, isLoading } = usegetTrendingCoins();
   const {data : coinData} = usegetCoinList();
 const navigate = useNavigate();
@@ -38,11 +40,11 @@ const navigate = useNavigate();
       cellRenderer: (params: ICellRendererParams) => (
         <div className="flex items-center gap-2.5">
           <Star className="h-4" />
-          <span>{params.data.market_cap_rank}</span>
+          <span>{params.data.rank}</span>
         </div>
       ),
       sortable: true,
-      field: "market_cap_rank",
+      field: "rank",
       width: 90,
     },
     {
@@ -63,13 +65,14 @@ const navigate = useNavigate();
       field: "price_btc",
       sortable: true,
       flex: 1,
-      valueFormatter: (params: ValueFormatterParams) => `${Number(params.value).toFixed(8)} BTC`,
+      valueFormatter: (params: CoinValueParams) => params.value ? `${Number(params.value).toFixed(8)} BTC` : 'N/A',
     },
     {
       headerName: "Market Cap Rank",
       field: "market_cap_rank",
       sortable: true,
       flex: 1,
+      valueFormatter: (params: CoinValueParams) => params.value ? `#${params.value}` : 'N/A',
     },
     {
       headerName: '7d Trend',

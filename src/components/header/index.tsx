@@ -1,9 +1,16 @@
-import { Search } from "lucide-react";
-import { Input } from "../ui/input";
+
 import Logo from "./components/Logo";
 import Profile from "./components/Profile";
+import { Switch } from "../ui/switch";
+import { useTheme } from "../themeProvider";
+import SearchCoin from "../searchCity";
 
 function Header() {
+  const { theme, setTheme } = useTheme();
+  // Function to toggle theme
+    const toggleTheme = ()=>{
+    setTheme(theme === "dark" ? 'light' : "dark")
+  }
   return (
     <header>
       <div className="container mx-auto p-4 flex justify-between">
@@ -28,21 +35,11 @@ function Header() {
 
         {/* Right Section: Candy, Portfolio, Search */}
         <div className="flex items-center gap-4">
-          <span className="text-pink-300 text-sm font-medium">🍬 Candy</span>
+           <span className='text-muted-foreground font-bold flex justify-center items-center gap-3'>{theme === 'dark' ? "Light Mode" : "Dark Mode "}<Switch onClick={toggleTheme} className=''/></span> 
          <Profile/>
 
           {/* Search Input */}
-          <div className="relative">
-            <Input
-              type="text"
-              placeholder="Search"
-              className="pl-8 pr-10 bg-zinc-800 text-zinc-300 placeholder:text-zinc-400 border-none rounded-md focus-visible:ring-0"
-            />
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-zinc-400" />
-            <div className="absolute right-2 top-2 bg-zinc-700 px-1.5 py-0.5 rounded text-xs text-zinc-400">
-              /
-            </div>
-          </div>
+          <SearchCoin/>
         </div>
       </div>
     </header>

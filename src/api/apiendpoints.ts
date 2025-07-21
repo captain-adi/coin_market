@@ -3,6 +3,7 @@ import { API_CONFIG } from "./apiconfig";
 import type { ICoinDetails } from "@/types/coinDataType";
 import type { IMarketChartData } from "@/types/chartTypes";
 import type { ITrendingCoinsResponse } from "@/types/trendingCoins";
+import type { ISearch } from "@/types/searchTypes";
 
 class Cypto_API {
   private CreateUrl(
@@ -50,6 +51,12 @@ class Cypto_API {
 async getTrendingCoins(): Promise <ITrendingCoinsResponse>{
   const url = `https://api.coingecko.com/api/v3/${API_CONFIG.ENDPOINTS.TRENDING_CRYPTOS}`
   return this.fetchData<ITrendingCoinsResponse>(url)
+}
+
+
+async getCoinSearch(query: string): Promise<ISearch>{
+  const url = `https://api.coingecko.com/api/v3/search?query=${query}`;
+  return this.fetchData<ISearch>(url);
 }
 
 }
