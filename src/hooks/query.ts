@@ -2,11 +2,11 @@ import cryptoAPI from "@/api/apiendpoints";
 import { useQuery } from "@tanstack/react-query";
 export const usegetCoinList = () => {
     return useQuery({
-            queryKey : ['coinList'],
-            queryFn: async ()=>{
-                return cryptoAPI.getCryptoCoinsList();
-            }
-    })
+        queryKey : ['coinList'],
+        queryFn: async ()=> cryptoAPI.getCryptoCoinsList(),
+        staleTime: 5 * 60 * 1000, // cache for 5 minutes
+        refetchOnMount: false,
+    });
 }   
 
 
