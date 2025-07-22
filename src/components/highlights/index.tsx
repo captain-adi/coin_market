@@ -1,4 +1,4 @@
-import { ChevronRight, Flame, TrendingUp, TrendingDown, ChevronsUp, ChevronsDown } from "lucide-react";
+import { ChevronRight, Flame, TrendingUp, ChevronsUp, ChevronsDown } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { usegetTrendingCoins, usegetCoinList } from "@/hooks/query";
 import HighlightSkeleton from "@/skelton/HighlightSkeleton";
