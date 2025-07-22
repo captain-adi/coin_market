@@ -12,10 +12,13 @@ export const usegetCoinList = () => {
 
 export const usegetCoinDetails = (coinname : string | undefined)=>{
     return useQuery({
-        queryKey : ['coindetails'],
+        queryKey : ['coindetails',coinname  ],
         queryFn : async() =>{
                 return cryptoAPI.getCtyptoCoinDetails(coinname)
-        }
+        },
+        enabled: !!coinname, // ✅ prevents fetching when coinname is undefined
+    staleTime: 5 * 60 * 1000, // ✅ data stays fresh for 5 mins
+    refetchOnMount: false,    // ✅ don’t refetch if already cached
     })
 }
 

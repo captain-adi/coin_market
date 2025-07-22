@@ -1,4 +1,4 @@
-import { ChevronRight, Flame, TrendingUp, ChevronsUp, ChevronsDown } from "lucide-react";
+import { ChevronRight, Flame, ChevronsUp, ChevronsDown } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { usegetTrendingCoins, usegetCoinList } from "@/hooks/query";
 import HighlightSkeleton from "@/skelton/HighlightSkeleton";
@@ -77,7 +77,7 @@ function HighLights() {
                     </>
                   ) : (
                     <>
-                      <TrendingUp className="w-3 h-3 text-orange-500" />
+                      <ChevronsUp className="w-3 h-3 text-orange-500" />
                       <span className="text-orange-500">Trending</span>
                     </>
                   )}

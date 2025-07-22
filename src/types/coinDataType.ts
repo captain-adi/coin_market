@@ -13,6 +13,10 @@ export interface IMarketData {
   max_supply: number | null;
   ath: Record<string, number>;
   atl: Record<string, number>;
+    fully_diluted_valuation: {
+    [currency: string]: number | null;
+  };
+    price_change_percentage_1y_in_currency : Record<string, number>;
 }
 
 export interface ICommunityData {
@@ -62,6 +66,7 @@ export interface ICoinDetails {
   id: string;
   symbol: string;
   name: string;
+  market_cap_rank: number;
   asset_platform_id: string | null;
   block_time_in_minutes: number;
   hashing_algorithm: string | null;

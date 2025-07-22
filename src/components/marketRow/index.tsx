@@ -1,6 +1,6 @@
 import { AgGridReact } from "ag-grid-react";
 import type { ICellRendererParams, ValueFormatterParams, ColDef } from 'ag-grid-community';
-import { usegetCoinList } from "@/hooks/query";
+import { usegetCoinList } from "../../hooks/query";
 import "./index.css";
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { Star } from "lucide-react";
@@ -8,10 +8,13 @@ import { useTheme } from "../themeProvider";
 import  SparklineRenderer from '@/components/sparkline'
 import { useNavigate } from "react-router-dom";
 import type { ICoin } from "@/types";
-
+import React from "react";
+import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 type CoinParams = ICellRendererParams<ICoin>;
 type CoinValueParams = ValueFormatterParams<ICoin>;
   function MarketRow() {
+      ModuleRegistry.registerModules([AllCommunityModule]);
+
   const { data: rowData } = usegetCoinList();
 const navigate = useNavigate();
   const columnDefs: ColDef<ICoin>[] = [
@@ -92,4 +95,4 @@ const {theme} = useTheme()
   );
 }
 
-export default MarketRow;
+export default React.memo(MarketRow);
