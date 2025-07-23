@@ -35,13 +35,12 @@ function SearchCoin() {
    
   );
 
-  console.log("Search Results:", data);
 
   return (
     <div>
       <button
       
-        className="relative w-full text-left pl-8 pr-10 py-2 bg-zinc-800 text-zinc-300 placeholder:text-zinc-400 border-none rounded-md focus-visible:ring-0"
+        className="relative w-full text-left pl-8 pr-10 py-2 bg-zinc-100 text-muted-foreground text-sm placeholder:text-zinc-400 border-none rounded-md focus-visible:ring-0 dark:bg-zinc-800 dark:text-zinc-300 dark:placeholder:text-zinc-400"
         onClick={() => setOpen(true)}
         type="button"
       >

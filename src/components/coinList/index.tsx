@@ -8,6 +8,7 @@ import  SparklineRenderer from '@/components/sparkline'
 import { useNavigate } from "react-router-dom";
 import type { ICoin } from "@/types";
 import React from "react";
+import './index.css';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 type CoinParams = ICellRendererParams<ICoin>;
 type CoinValueParams = ValueFormatterParams<ICoin>;
@@ -78,11 +79,12 @@ const navigate = useNavigate();
 const {theme} = useTheme()
   return (
     <>
-      <div className={`ag-theme-material-${theme}`} style={{ height: 500, width: "100%" }}>
+      <div className={`ag-theme-material-${theme}`} style={{ height: "100vh", width: "100%" }}>
         <AgGridReact<ICoin>
           rowData={rowData}
           columnDefs={columnDefs}
           suppressCellFocus={true} 
+           rowClass="custom-row"
           getRowClass={() => "my-row"}
           onCellClicked={(params) => {
             if (params.data?.id) {
@@ -95,4 +97,4 @@ const {theme} = useTheme()
   );
 }
 
-export default React.memo(CoinList);
+  export default React.memo(CoinList);
