@@ -1,24 +1,33 @@
-
 import { usegetCoinList, usegetTrendingCoins } from "@/hooks/query";
 import { AgGridReact } from "ag-grid-react";
-import type { ICellRendererParams, ValueFormatterParams  } from 'ag-grid-community';
+import type { ICellRendererParams, ValueFormatterParams, ColDef } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import SparklineRenderer from "@/components/sparkline";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { useTheme } from "@/components/themeProvider";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { ICoin } from "@/types";
+import type { ITrendingCoinItem } from "@/types/trendingCoins";
+
 ModuleRegistry.registerModules([AllCommunityModule]);
+
+// Use existing types with extended properties for the grid
+type TrendingGridData = ITrendingCoinItem['item'] & {
+  rank: number;
+  sparkline_in_7d: { price: number[] };
+};
+
+type TrendingCoinParams = ICellRendererParams<TrendingGridData>;
+type TrendingCoinValueParams = ValueFormatterParams<TrendingGridData>;
+
 function TrendingCurrency() {
   const { theme } = useTheme();
-   type CoinValueParams = ValueFormatterParams<ICoin>;
   const { data, isLoading } = usegetTrendingCoins();
-  const {data : coinData} = usegetCoinList();
-const navigate = useNavigate();
+  const { data: coinData } = usegetCoinList();
+  const navigate = useNavigate();
 
   // Map trending coins to coinData for sparkline
-  const trendingCoins = data?.coins.map((coinWrapper, index) => {
+  const trendingCoins = data?.coins.map((coinWrapper: ITrendingCoinItem, index) => {
     const coin = coinWrapper.item;
     const fullCoin = coinData?.find((c: any) => c.id === coin.id);
     return {
@@ -29,18 +38,17 @@ const navigate = useNavigate();
     };
   }) || [];
 
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  const columnDefs = [
+  const columnDefs: ColDef<TrendingGridData>[] = [
     {
       headerName: "#",
-      cellRenderer: (params: ICellRendererParams) => (
+      cellRenderer: (params: TrendingCoinParams) => (
         <div className="flex items-center gap-2.5">
           <Star className="h-4" />
-          <span>{params.data.rank}</span>
+          <span>{params.data?.rank}</span>
         </div>
       ),
       sortable: true,
@@ -49,11 +57,11 @@ const navigate = useNavigate();
     },
     {
       headerName: "Coin",
-      cellRenderer: (params: ICellRendererParams) => (
+      cellRenderer: (params: TrendingCoinParams) => (
         <span className="flex gap-2 items-center">
-          <img src={params.data.small} className="h-4" alt={params.data.name} />
-          {params.data.name}
-          <span className="text-muted-foreground">({params.data.symbol})</span>
+          <img src={params.data?.small} className="h-4" alt={params.data?.name} />
+          {params.data?.name}
+          <span className="text-muted-foreground">({params.data?.symbol})</span>
         </span>
       ),
       sortable: true,
@@ -65,45 +73,50 @@ const navigate = useNavigate();
       field: "price_btc",
       sortable: true,
       flex: 1,
-      valueFormatter: (params: CoinValueParams) => params.value ? `${Number(params.value).toFixed(8)} BTC` : 'N/A',
+      valueFormatter: (params: TrendingCoinValueParams) => 
+        params.value ? `${Number(params.value).toFixed(8)} BTC` : 'N/A',
     },
     {
       headerName: "Market Cap Rank",
       field: "market_cap_rank",
       sortable: true,
       flex: 1,
-      valueFormatter: (params: CoinValueParams) => params.value ? `#${params.value}` : 'N/A',
+      valueFormatter: (params: TrendingCoinValueParams) => 
+        params.value ? `#${params.value}` : 'N/A',
     },
     {
       headerName: '7d Trend',
-      cellRenderer: (params: ICellRendererParams) => (
+      cellRenderer: (params: TrendingCoinParams) => (
         <SparklineRenderer value={params.data?.sparkline_in_7d?.price || []} />
       ),
       tooltipComponent: null,
       tooltipValueGetter: () => '',
+      field: 'sparkline_in_7d'
     },
   ];
 
   return (
     <div className="container mx-auto px-4 mt-12">
-        <div className="flex flex-col gap-4 mb-6">
-          <h2 className="text-2xl font-bold"  >Top Trending Cryptocurrencies Today</h2>
-          <p className="text-muted-foreground">Discover the top trending cryptocurrencies on CoinGecko. This list is sorted by coins that are most searched for in the last 3 hours. Non-Playable Coin, Ethena, and Ethereum are the top 3 trending crypto now. In the past 24 hours, the price of Non-Playable Coin changed by 5.2%, Ethena price changed by 21.6%, and Ethereum price changed by 5.2%</p>
-        </div>
-    <div className={`ag-theme-material-${theme} ` } style={{ height: 750, width: "100%" }}>
-    <AgGridReact
-        rowData={trendingCoins}
-        columnDefs={columnDefs}
-        suppressCellFocus={true}
-        getRowClass={() => "my-row"}
-        onCellClicked={(params) => {
-          if (params.data?.id) {
-            navigate(`/coins/${params.data.id}`);
-          }
-        }}
+      <div className="flex flex-col gap-4 mb-6">
+        <h2 className="text-2xl font-bold">Top Trending Cryptocurrencies Today</h2>
+        <p className="text-muted-foreground">
+          Discover the top trending cryptocurrencies on CoinGecko. This list is sorted by coins that are most searched for in the last 3 hours.
+        </p>
+      </div>
+      <div className={`ag-theme-material-${theme}`} style={{ height: 750, width: "100%" }}>
+        <AgGridReact<TrendingGridData>
+          rowData={trendingCoins}
+          columnDefs={columnDefs}
+          suppressCellFocus={true}
+          getRowClass={() => "my-row"}
+          onCellClicked={(params) => {
+            if (params.data?.id) {
+              navigate(`/coins/${params.data.id}`);
+            }
+          }}
         />
+      </div>
     </div>
-        </div>
   );
 }
 
