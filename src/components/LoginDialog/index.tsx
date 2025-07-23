@@ -1,13 +1,13 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+
 
 export default function LoginDialog({open}:{open: boolean}) {
-    const [openDialog, setOpenDialog] = useState<boolean>(false);
+
   return (
     <Dialog open={open} >
         <DialogTrigger>
-            <Button variant="outline" className="text-sm font-medium " onClick={()=> setOpenDialog(true)}>
+            <Button variant="outline" className="text-sm font-medium " >
                  Get Started
             </Button>
         </DialogTrigger>

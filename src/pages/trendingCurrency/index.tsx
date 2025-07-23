@@ -9,9 +9,9 @@ import { useTheme } from "@/components/themeProvider";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { ICoin } from "@/types";
+ModuleRegistry.registerModules([AllCommunityModule]);
 function TrendingCurrency() {
   const { theme } = useTheme();
-   ModuleRegistry.registerModules([AllCommunityModule]);
    type CoinValueParams = ValueFormatterParams<ICoin>;
   const { data, isLoading } = usegetTrendingCoins();
   const {data : coinData} = usegetCoinList();
@@ -61,7 +61,7 @@ const navigate = useNavigate();
       flex: 1,
     },
     {
-      headerName: "Price (BTC)",
+      headerName: "Price",
       field: "price_btc",
       sortable: true,
       flex: 1,

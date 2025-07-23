@@ -32,7 +32,7 @@ function Profile() {
               - it's free!
             </p>
 
-           <LoginDialog/>
+           <LoginDialog open={false}/>
           </div>
         </div>
       </PopoverContent>
