@@ -88,7 +88,7 @@ const {theme} = useTheme()
           getRowClass={() => "my-row"}
           onCellClicked={(params) => {
             if (params.data?.id) {
-              navigate(`/coins/${params.data.id}`)
+              navigate(`/coins/details/${params.data.id}`)
             }
           }}
         />

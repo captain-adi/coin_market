@@ -4,6 +4,7 @@ import Profile from "./components/Profile";
 import { Switch } from "../ui/switch";
 import { useTheme } from "../themeProvider";
 import SearchCoin from "../searchCity";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { theme, setTheme } = useTheme();
@@ -21,15 +22,28 @@ function Header() {
           </div>
 
           {/* Nav Links */}
-          <div className="hidden md:flex gap-6 text-sm text-zinc-300 font-medium">
-            <span className="cursor-pointer hover:text-white">
-              Cryptocurrencies
-            </span>
-            <span className="cursor-pointer hover:text-white">Exchanges</span>
-            <span className="cursor-pointer hover:text-white">NFT</span>
-            <span className="cursor-pointer hover:text-white">Learn</span>
-            <span className="cursor-pointer hover:text-white">Products</span>
-            <span className="cursor-pointer hover:text-white">API</span>
+          <div className="hidden md:flex gap-6 text-sm  font-medium">
+            <Link to="/">
+              <span className="cursor-pointer hover:text-muted-foreground">
+                Cryptocurrencies
+              </span>
+            </Link>
+            <Link to="/coins/trending">
+              <span className="cursor-pointer hover:text-muted-foreground">
+                Trending
+              </span>
+            </Link>
+            <Link to="/coins/topgainers-and-loosers">
+              <span className="cursor-pointer hover:text-muted-foreground">
+              Top Gainers & Losers
+              </span>
+            </Link>
+        
+            <Link to={"/coin"}>
+              <span className="cursor-pointer hover:text-muted-foreground">
+                API
+              </span>
+            </Link>
           </div>
         </div>
 
