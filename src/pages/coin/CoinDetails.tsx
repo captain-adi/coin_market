@@ -76,8 +76,8 @@ function CoinDetails() {
   ];
 
   return (
-    <div className="container mx-auto p-4 flex gap-3 ">
-      <Card className="w-full h-full py-5 max-w-md bg-background text-foreground rounded-2xl shadow-xl">
+    <div className="container mx-auto p-4 flex flex-col gap-3 md:flex-row ">
+      <Card className="w-full h-full py-5  bg-background text-foreground rounded-2xl shadow-xl md:max-w-md">
         <CardContent className="space-y-4">
           <div className="flex gap-2   items-center">
             <img src={data?.image.small} className="h-7" alt="" />
