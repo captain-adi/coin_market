@@ -29,7 +29,7 @@ const navigate = useNavigate();
             </div>
           );
         }, 
-        sortable: true,
+
         field: 'market_cap_rank'
       },
     {
@@ -45,26 +45,22 @@ const navigate = useNavigate();
           </span>
         );
       },
-      sortable: true,
       field: 'name',
     },
     {
       valueFormatter: (p: CoinValueParams) => "$" + p.value?.toLocaleString(), 
       headerName: "Price",
       field: 'current_price',
-      sortable: true,
     },
     {   
       valueFormatter: (p: CoinValueParams) => "$" + p.value?.toLocaleString(), 
       headerName: "Market Cap",
       field: 'market_cap',
-      sortable: true,
     },
     {
       valueFormatter: (p: CoinValueParams) => "$" + p.value?.toLocaleString(),   
       headerName: "24h Volume",
       field: 'total_volume',
-      sortable: true,
     },
     {
       headerName: '7d Trend',
@@ -84,6 +80,10 @@ const {theme} = useTheme()
           rowData={rowData}
           columnDefs={columnDefs}
           suppressCellFocus={true} 
+          defaultColDef={{
+            flex: 1,
+            sortable : true,
+          }}
            rowClass="custom-row"
           getRowClass={() => "my-row"}
           onCellClicked={(params) => {
