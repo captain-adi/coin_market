@@ -13,7 +13,7 @@ function Header() {
   };
   return (
     <header>
-      <div className="container mx-auto p-4 flex justify-between md:gap-12">
+      <div className="container mx-auto p-4 gap-7 flex justify-between md:gap-12">
         <div className="flex items-center justify-center gap-3">
           <div className="flex items-center gap-2">
             <Logo />
@@ -48,10 +48,10 @@ function Header() {
           <div onClick={toggleTheme} className="cursor-pointer">
             {theme === "dark" ? (
               <div>
-                <Moon className="animate-[spin_0.5s_linear] [transform:rotate(360deg)]" />
+                <Sun className="animate-[spin_0.5s_linear] [transform:rotate(0deg)] text-yellow-500" />
               </div>
             ) : (
-              <Sun className="animate-[spin_0.5s_linear] [transform:rotate(0deg)] text-yellow-500" />
+              <Moon className="animate-[spin_0.5s_linear] [transform:rotate(360deg)] " />
             )}
           </div>
 
