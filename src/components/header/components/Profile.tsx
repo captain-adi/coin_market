@@ -10,13 +10,13 @@ import { Separator } from "@/components/ui/separator";
 function Profile() {
   return ( 
     <Popover >
-      <PopoverTrigger>
+      <PopoverTrigger className="hidden md:block">
         {" "}
         <span className=" text-sm font-medium">
           ⭐ Portfolio
         </span>
       </PopoverTrigger>
-      <PopoverContent className="w-96">
+      <PopoverContent className="w-96 ">
         <div className="flex flex-col gap-4 p-4">
           <div className="">
             <Button variant="outline" >

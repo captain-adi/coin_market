@@ -40,12 +40,12 @@ function SearchCoin() {
     <div>
       <button
       
-        className="relative w-full text-left pl-8 pr-10 py-2 bg-zinc-100 text-muted-foreground text-sm placeholder:text-zinc-400 border-none rounded-md focus-visible:ring-0 dark:bg-zinc-800 dark:text-zinc-300 dark:placeholder:text-zinc-400"
+        className="relative w-full sm:w[w-200] md:w-[250px] text-left pl-8 pr-10 py-2 bg-zinc-100 text-muted-foreground text-sm placeholder:text-zinc-400 border-none rounded-md focus-visible:ring-0 dark:bg-zinc-800 dark:text-zinc-300 dark:placeholder:text-zinc-400"
         onClick={() => setOpen(true)}
         type="button"
       >
         <Search className="absolute left-2 top-2.5 h-4 w-4 text-zinc-400" />
-        <span className="">Search Cryptocurrency ...</span>
+        <span className=" whitespace-nowrap">Search ..</span>
         <span className="absolute right-2 top-2 bg-zinc-700 px-1.5 py-0.5 rounded text-xs text-zinc-400">/</span>
       </button>
       <CommandDialog open={open} onOpenChange={setOpen}>
@@ -70,7 +70,7 @@ function SearchCoin() {
                   onSelect={() => {
                     setOpen(false);
                     setQuery("");
-                    navigate(`/coins/${coin.id}`);
+                    navigate(`/coins/details/${coin.id}`);
                   }}
                   className="flex items-center gap-3 cursor-pointer"
                 >
