@@ -10,30 +10,34 @@ import type { ICoin } from "@/types";
 import React from "react";
 import './index.css';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
+import { useIsMobileOrTablet } from "@/utils/Screen";
+import Notice from "../notice/Notice";
 type CoinParams = ICellRendererParams<ICoin>;
 type CoinValueParams = ValueFormatterParams<ICoin>;
 ModuleRegistry.registerModules([AllCommunityModule]);
   function CoinList() {
-
+const isMobile  = useIsMobileOrTablet();
 
   const { data: rowData } = usegetCoinList();
 const navigate = useNavigate();
   const columnDefs: ColDef<ICoin>[] = [
       { 
         headerName: "#", 
+        pinned: isMobile ? "left" : undefined,
         cellRenderer: (params: CoinParams) => {
           return (
-            <div className="flex items-center gap-2.5">
-              <Star className="h-4"/>
+            <div className="flex items-center gap-0.5 md:gap-2.5">
+              <Star className="h-3 md:h-4"/>
               <span>{params.data?.market_cap_rank}</span>
             </div>
           );
         }, 
-
+        width: 80,
         field: 'market_cap_rank'
       },
     {
       headerName: "Coin",
+      pinned: isMobile ? "left" : undefined,
       cellRenderer: (params: CoinParams) => {
         return (
           <span className="flex gap-2 items-center">
@@ -45,6 +49,7 @@ const navigate = useNavigate();
           </span>
         );
       },
+      width: isMobile ? 200 : undefined,
       field: 'name',
     },
     {
@@ -69,19 +74,20 @@ const navigate = useNavigate();
       ),
       tooltipComponent: null,
       tooltipValueGetter: () => '',
-      field: 'sparkline_in_7d'
+      field: 'sparkline_in_7d',
     }
   ];
 const {theme} = useTheme()
   return (
     <>
+    <Notice/>
       <div className={`ag-theme-material-${theme}`} style={{ height: "100vh", width: "100%" }}>
         <AgGridReact<ICoin>
           rowData={rowData}
           columnDefs={columnDefs}
           suppressCellFocus={true} 
           defaultColDef={{
-            flex: 1,
+            flex : isMobile ? undefined : 1,
             sortable : true,
           }}
            rowClass="custom-row"

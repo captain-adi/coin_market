@@ -8,6 +8,7 @@ import { useTheme } from "@/components/themeProvider";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { ITrendingCoinItem } from "@/types/trendingCoins";
+import Notice from "@/components/notice/Notice";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -66,13 +67,13 @@ function TrendingCurrency() {
       ),
       sortable: true,
       field: "name",
-      flex: 1,
+   
     },
     {
       headerName: "Price",
       field: "price_btc",
       sortable: true,
-      flex: 1,
+   
       valueFormatter: (params: TrendingCoinValueParams) => 
         params.value ? `${Number(params.value).toFixed(8)} BTC` : 'N/A',
     },
@@ -80,7 +81,7 @@ function TrendingCurrency() {
       headerName: "Market Cap Rank",
       field: "market_cap_rank",
       sortable: true,
-      flex: 1,
+ 
       valueFormatter: (params: TrendingCoinValueParams) => 
         params.value ? `#${params.value}` : 'N/A',
     },
@@ -103,15 +104,19 @@ function TrendingCurrency() {
           Discover the top trending cryptocurrencies on CoinGecko. This list is sorted by coins that are most searched for in the last 3 hours.
         </p>
       </div>
+      <Notice/>
       <div className={`ag-theme-material-${theme}`} style={{ height: 750, width: "100%" }}>
         <AgGridReact<TrendingGridData>
           rowData={trendingCoins}
           columnDefs={columnDefs}
           suppressCellFocus={true}
+          defaultColDef={{
+            flex: 1,
+          }}
           getRowClass={() => "my-row"}
           onCellClicked={(params) => {
             if (params.data?.id) {
-              navigate(`/coins/${params.data.id}`);
+              navigate(`/coins/details/${params.data.id}`);
             }
           }}
         />
