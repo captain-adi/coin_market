@@ -2,12 +2,11 @@ import { useTheme } from "@/components/themeProvider";
 import { usegetCoinList } from "@/hooks/query";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/styles/ag-theme-material.css';
-import { AllCommunityModule, ModuleRegistry , type ColDef } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry , type ColDef, type ICellRendererParams } from "ag-grid-community";
 import type { ICoin, ICoinList } from "@/types";
 import { useNavigate } from "react-router-dom";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
-
 function TopGainerAndLoosers() {
   const { data, isLoading }: { data?: ICoinList; isLoading: boolean } = usegetCoinList();
   const { theme } = useTheme();
@@ -22,10 +21,17 @@ function TopGainerAndLoosers() {
   const topLosers: ICoinList = data.filter((coin : ICoin) => coin.price_change_percentage_24h < 0);
 
   const columnDefs: ColDef<ICoin>[] = [
-    { headerName: "Coin", field: "name" },
-    { headerName: "Price Change (24h)", field: "price_change_percentage_24h" },
-    { headerName: "Market Cap", field: "market_cap" },
-    { headerName: "Current Price", field: "current_price" },
+    { headerName: "Coin", field: "name" , cellRenderer:(params : ICellRendererParams<ICoin>)=>{
+      return (
+        <div className="flex items-center gap-2">
+          <img src={params.data?.image} alt={params.data?.name} className="h-4" />
+          <span>{params.data?.name}</span>
+        </div>
+      )
+    } },
+    { headerName: "Price Change (24h)", field: "price_change_percentage_24h" , valueFormatter: (params) => `${params.value.toFixed(2)}%` },
+    { headerName: "Market Cap", field: "market_cap", valueFormatter: (params) => `$${params.value.toLocaleString()}` },
+    { headerName: "Current Price", field: "current_price", valueFormatter: (params) => `$${params.value.toLocaleString()}` },
   ];
 
   return (
