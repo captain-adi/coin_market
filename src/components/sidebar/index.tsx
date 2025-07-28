@@ -14,6 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Link } from "react-router-dom"
 
 const items = [
   {
@@ -36,7 +37,7 @@ const items = [
   },
   {
     title: "API",
-    url: "/coins/api",
+    url: "#",
     icon: Settings,
     color: "text-purple-400",
   },
@@ -75,15 +76,15 @@ export function AppSidebar({ className }: IAppSidebar) {
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a
-                        href={item.url}
+                      <Link
+                        to={item.url}
                         className="hover:bg-gray-600"
                       >
                         <item.icon className={`h-5 w-5 ${item.color}`} />
                         <span className="text-sm font-medium  hover:text-muted-foreground">
                           {item.title}
                         </span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
