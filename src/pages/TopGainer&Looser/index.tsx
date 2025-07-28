@@ -52,8 +52,14 @@ function TopGainerAndLoosers() {
       <div className={`ag-theme-material-${theme} flex flex-col gap-3.5 w-full md:max-h-1/2`} style={{ height: "800px" }}>
         <h2 className="text-3xl font-bold ">Top Losers</h2>
         <AgGridReact<ICoin> columnDefs={columnDefs}
+        
         defaultColDef={{
           flex: 1
+        }}
+         onCellClicked={(params)=>{
+          if (params.data) {
+            navigate(`/coins/details/${params.data.id}`);
+          }
         }} rowData={topLosers} modules={[AllCommunityModule]} />
       </div>
     </div>
