@@ -11,7 +11,6 @@ import React from "react";
 import './index.css';
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { useIsMobileOrTablet } from "@/utils/Screen";
-import Notice from "../notice/Notice";
 type CoinParams = ICellRendererParams<ICoin>;
 type CoinValueParams = ValueFormatterParams<ICoin>;
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -80,7 +79,6 @@ const navigate = useNavigate();
 const {theme} = useTheme()
   return (
     <>
-    <Notice/>
       <div className={`ag-theme-material-${theme}`} style={{ height: "100vh", width: "100%" }}>
         <AgGridReact<ICoin>
           rowData={rowData}

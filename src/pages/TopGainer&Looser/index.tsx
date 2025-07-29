@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 function TopGainerAndLoosers() {
+  console.log("treding page rednerd")
   const { data, isLoading }: { data?: ICoinList; isLoading: boolean } = usegetCoinList();
   const { theme } = useTheme();
   const navigate = useNavigate();

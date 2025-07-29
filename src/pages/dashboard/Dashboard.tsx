@@ -1,7 +1,8 @@
-import CoinList from '@/components/coinList'
+
 import HighLights from '@/components/highlights'
 import LanguageDropDown from '@/components/languageDropdown'
-
+import React from 'react'
+const CoinList = React.lazy(() => import('@/components/coinList'))
 
 
 
@@ -25,7 +26,9 @@ function Dashboard() {
 <HighLights/>
 
     <div className=' mt-5 '>
-<CoinList/>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <CoinList />
+      </React.Suspense>
 
     </div>
     </div>

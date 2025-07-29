@@ -4,6 +4,20 @@ import { usegetTrendingCoins, usegetCoinList } from "@/hooks/query";
 import HighlightSkeleton from "@/skelton/HighlightSkeleton";
 import type { ITrendingCoinsResponse, ITrendingCoinItem } from "@/types/trendingCoins";
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
+
+// Define the TrendingCoinData type
+interface TrendingCoinData {
+  id: string;
+  symbol: string;
+  name: string;
+  price: number | string;
+  icon: string;
+  rank: number;
+  score: number;
+  percentageChange: number | null;
+  isUsdPrice: boolean;
+}
 
 function HighLights() {
   const { data, isLoading }: { data: ITrendingCoinsResponse | undefined, isLoading: boolean } = usegetTrendingCoins();
@@ -16,22 +30,26 @@ function HighLights() {
   }
 
   // Get top 3 trending coins from API data
-  const trendingCoins = data?.coins?.slice(0, 3).map((coinWrapper: ITrendingCoinItem) => {
-    const coin = coinWrapper.item;
-    // Find the corresponding coin in the coin list to get USD price and percentage change
-    const coinWithChange = coinListData?.find((c) => c.id === coin.id);
-    
-    return {
-      symbol: coin.symbol.toUpperCase(),
-      name: coin.name,
-      price: coinWithChange?.current_price || coin.price_btc.toFixed(8),
-      icon: coin.small,
-      rank: coin.market_cap_rank,
-      score: coin.score,
-      percentageChange: coinWithChange?.price_change_percentage_24h || null,
-      isUsdPrice: !!coinWithChange,
-    };
-  }) || [];
+const trendingCoins = useMemo(() => {
+    if (!data?.coins) return [];
+
+    return data.coins.slice(0, 3).map((coinWrapper: ITrendingCoinItem): TrendingCoinData => {
+      const coin = coinWrapper.item;
+      const coinWithChange = coinListData?.find((c) => c.id === coin.id);
+      
+      return {
+        id: coin.id,
+        symbol: coin.symbol.toUpperCase(),
+        name: coin.name,
+        price: coinWithChange?.current_price || coin.price_btc.toFixed(8),
+        icon: coin.small,
+        rank: coin.market_cap_rank,
+        score: coin.score,
+        percentageChange: coinWithChange?.price_change_percentage_24h || null,
+        isUsdPrice: !!coinWithChange,
+      };
+    });
+  }, [data?.coins, coinListData]);
   return (
      <Card className="  md:w-[400px] rounded-xl shadow-lg">
       <CardContent className="p-4">
