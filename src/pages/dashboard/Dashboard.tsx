@@ -2,7 +2,7 @@
 import HighLights from '@/components/highlights'
 import LanguageDropDown from '@/components/languageDropdown'
 import CoinList from '@/components/coinList'; 
-import InfinityScroll from '@/components/infinityScroll/INfinityScroll';
+import InfinityScroll from '@/components/infinityScroll/InfinityScroll';
 
 
 
