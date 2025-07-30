@@ -2,6 +2,7 @@
 import HighLights from '@/components/highlights'
 import LanguageDropDown from '@/components/languageDropdown'
 import CoinList from '@/components/coinList'; 
+import InfinityScroll from '@/components/infinityScroll/INfinityScroll';
 
 
 
@@ -16,10 +17,10 @@ function Dashboard() {
       </div>
       <div className='flex gap-9 items-center'>
         <LanguageDropDown/>
-
       </div>
      
     </div>
+  <InfinityScroll/>
     {/* highlights section */}
 
 <HighLights/>

@@ -1,0 +1,149 @@
+/* 🌐 Container that centers everything */
+.scroll-container {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent horizontal scroll */
+}
+
+/* 🧭 Wrapper for the scrolling section */
+.scroll-mask-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* 🌀 Scrollable area */
+.scroll-mask {
+  overflow: hidden;
+}
+
+.scroll-wrapper {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  animation: scroll-left 40s linear infinite;
+  width: max-content;
+  min-width: 0;
+}
+
+.auto-scroll {
+  animation: scroll-left 100s linear infinite;
+}
+
+/* 🪙 Coin card style */
+.coin-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+  background-color: #f9f9f9;
+  color: #111;
+  padding: 12px;
+  text-align: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.coin-image {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.coin-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.error-text {
+  color: red;
+}
+
+/* 🎞️ Animation */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* 🌫️ Fading edges (light mode default) */
+.fade-left,
+.fade-right {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.fade-left {
+  left: 0;
+  background: linear-gradient(to right, #fff, transparent);
+}
+
+.fade-right {
+  right: 0;
+  background: linear-gradient(to left, #fff, transparent);
+}
+
+/* 🌑 DARK MODE support */
+@media (prefers-color-scheme: dark) {
+  .coin-card {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+
+  .fade-left {
+    background: linear-gradient(to right, #0f0f0f, transparent);
+  }
+
+  .fade-right {
+    background: linear-gradient(to left, #0f0f0f, transparent);
+  }
+}
+
+/* 📱 Responsive tweaks for small screens */
+@media screen and (max-width: 418px) {
+  .scroll-container {
+    padding: 8px;
+  }
+
+  .scroll-wrapper {
+    gap: 8px;
+    padding: 8px;
+    animation-duration: 25s;
+  }
+
+  .coin-card {
+    width: 90px;
+    padding: 8px;
+  }
+
+  .coin-image {
+    width: 44px;
+    height: 44px;
+  }
+
+  .coin-name {
+    font-size: 13px;
+  }
+
+  .fade-left,
+  .fade-right {
+    width: 24px;
+  }
+}
